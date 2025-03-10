@@ -3,7 +3,10 @@ from sqlalchemy.orm import (
     DeclarativeBase,
     Mapped,
     mapped_column,
+    relationship,
 )
+
+from temperature.models import Temperature
 
 
 class Base(DeclarativeBase):
@@ -18,4 +21,11 @@ class City(Base):
     additional_info: Mapped[str | None] = mapped_column(
         String(500),
         nullable=True
+    )
+
+    temperatures: Mapped[list["Temperature"]] = relationship(
+        "Temperature",
+        back_populates="city",
+        cascade="all, delete",
+        passive_deletes=True
     )
