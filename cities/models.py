@@ -1,20 +1,15 @@
 from sqlalchemy import String
 from sqlalchemy.orm import (
-    DeclarativeBase,
     Mapped,
     mapped_column,
     relationship,
 )
 
-from temperature.models import Temperature
-
-
-class Base(DeclarativeBase):
-    pass
+from core.database import Base
 
 
 class City(Base):
-    __tablename__ = "city"
+    __tablename__ = "cities"
 
     id: Mapped[int] = mapped_column(primary_key=True, autoincrement=True)
     name: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
@@ -23,7 +18,7 @@ class City(Base):
         nullable=True
     )
 
-    temperatures: Mapped[list["Temperature"]] = relationship(
+    temperatures = relationship(
         "Temperature",
         back_populates="city",
         cascade="all, delete",

@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import (
     create_async_engine,
     async_sessionmaker
 )
+from sqlalchemy.orm import DeclarativeBase
 
 load_dotenv()
 
@@ -24,6 +25,10 @@ AsyncSessionLocal = async_sessionmaker(
     autoflush=False,
     bind=engine
 )
+
+
+class Base(DeclarativeBase):
+    pass
 
 
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
