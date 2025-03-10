@@ -23,4 +23,4 @@ class Temperature(Base):
     )
     temperature: Mapped[float] = mapped_column(Float, nullable=False)
 
-    city = relationship("City", back_populates="temperatures")
+    city: Mapped["City"] = relationship(back_populates="temperatures")  # noqa: F821, E501

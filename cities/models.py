@@ -6,6 +6,7 @@ from sqlalchemy.orm import (
 )
 
 from core.database import Base
+from temperature.models import Temperature
 
 
 class City(Base):
@@ -18,8 +19,7 @@ class City(Base):
         nullable=True
     )
 
-    temperatures = relationship(
-        "Temperature",
+    temperatures: Mapped[list["Temperature"]] = relationship(
         back_populates="city",
         cascade="all, delete",
         passive_deletes=True
